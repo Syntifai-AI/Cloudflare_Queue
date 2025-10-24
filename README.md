@@ -4,7 +4,7 @@ Sistema de buffer de mensagens para LLMs usando **Cloudflare Workers + Queues**.
 
 ## 🚀 Deploy Rápido
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Syntifai-AI/Fila_Cloudflare)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Syntifai-AI/Cloudflare_Queue)
 
 Clique no botão acima para fazer deploy automático em sua conta Cloudflare. O processo irá:
 - Clonar o repositório para sua conta GitHub
