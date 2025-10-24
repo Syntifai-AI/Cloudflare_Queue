@@ -1,0 +1,28 @@
+{
+  "name": "buffer-memory",
+  "version": "1.0.0",
+  "description": "Sistema de buffer de mensagens para LLMs usando Cloudflare Workers + Queues",
+  "main": "src/index.ts",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail"
+  },
+  "keywords": ["buffer", "memory", "llm", "cloudflare", "workers", "queues"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20251014.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "API_KEY": {
+        "description": "Chave de autenticação para proteger o endpoint Producer. Gere uma chave aleatória usando `openssl rand -hex 32`"
+      },
+      "EXTERNAL_WEBHOOK_URL": {
+        "description": "URL do webhook externo que irá receber os dados processados das mensagens agrupadas por chatId"
+      }
+    }
+  }
+}

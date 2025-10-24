@@ -1,0 +1,19 @@
+name = "buffer-memory"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Variáveis de ambiente
+# Para desenvolvimento local: configure no arquivo .dev.vars
+# Para produção: variável EXTERNAL_WEBHOOK_URL configurada via wrangler secret
+
+# Configuração da fila
+[[queues.producers]]
+queue = "buffer-memory-queue"
+binding = "BUFFER_MEMORY_QUEUE"
+
+[[queues.consumers]]
+queue = "buffer-memory-queue"
+max_batch_size = 50
+max_batch_timeout = 30
+max_retries = 3
+dead_letter_queue = "buffer-memory-dlq"

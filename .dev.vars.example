@@ -1,0 +1,9 @@
+# Variáveis de ambiente para desenvolvimento local
+# Copie este arquivo para .dev.vars e preencha com seus valores
+
+# API Key para autenticação no Producer (webhook)
+# Gere uma chave segura: openssl rand -hex 32
+API_KEY=sua_api_key_aqui_substitua_por_valor_seguro
+
+# URL do webhook externo para onde enviar dados processados
+EXTERNAL_WEBHOOK_URL=https://seu-webhook.com/endpoint
