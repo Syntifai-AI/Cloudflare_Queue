@@ -206,24 +206,6 @@ O sistema possui proteção contra perda de mensagens:
 wrangler queues list
 ```
 
-## 📊 Limites e Escalabilidade
-
-| Recurso | Limite |
-|---------|--------|
-| Taxa de envio | 5.000 msgs/segundo |
-| Tamanho da mensagem | 128 KB |
-| Batch size máximo | 100 mensagens |
-| Batch timeout máximo | 60 segundos |
-| Backlog | 25 GB |
-
-## 💰 Custo Estimado
-
-| Volume/dia | Custo/mês |
-|------------|-----------|
-| < 11k msgs | $5 |
-| 100k msgs  | $8.20 |
-| 1M msgs    | $40.60 |
-
 ## 🛠️ Desenvolvimento
 
 ```bash
