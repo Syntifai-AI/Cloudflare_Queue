@@ -37,8 +37,8 @@ Cliente → Producer (webhook) → Queue → Consumer → Webhook Externo
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/Syntifai-AI/Fila_Cloudflare.git
-cd Fila_Cloudflare/buffer-memory
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
 
 # Instalar dependências
 npm install
@@ -77,7 +77,7 @@ wrangler secret put EXTERNAL_WEBHOOK_URL
 
 ```bash
 # Enviar mensagem de teste
-curl -X POST https://buffer-memory.syntifai.workers.dev \
+curl -X POST https://seu-worker.workers.dev \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer SUA_API_KEY" \
   -d '{
