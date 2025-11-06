@@ -18,6 +18,8 @@ export interface BufferMessage {
   content: string       // Conteúdo/texto da mensagem (pode ser texto transcrito se for áudio/imagem)
   messageType: string   // Tipo da mensagem (ex: text, audio, image, video, etc)
   timestamp: number     // Unix timestamp (milissegundos)
+  account_id: string    // ID da conta do usuário
+  conversation_id: string // ID da conversa/thread
 }
 
 /**
@@ -27,6 +29,8 @@ export interface BufferMessage {
 export type CreateBufferMessageData = Partial<BufferMessage> & {
   chatId: string
   content: string
+  account_id: string
+  conversation_id: string
 }
 
 // ============================================
@@ -47,6 +51,8 @@ export interface BufferApiResponse {
  */
 export interface ProcessedChatPayload {
   chatId: string
+  account_id: string
+  conversation_id: string
   totalMessages: number
   conversation: string  // Todas as mensagens concatenadas
   messages: ProcessedMessage[]
@@ -62,6 +68,8 @@ export interface ProcessedMessage {
   messageType: string
   timestamp: number
   timestampISO: string
+  account_id: string
+  conversation_id: string
 }
 
 // ============================================

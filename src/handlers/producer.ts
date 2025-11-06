@@ -61,7 +61,11 @@ function validateMessageData(data: any): data is CreateBufferMessageData {
     typeof data.chatId === 'string' &&
     data.chatId.trim() !== '' &&
     typeof data.content === 'string' &&
-    data.content.trim() !== ''
+    data.content.trim() !== '' &&
+    typeof data.account_id === 'string' &&
+    data.account_id.trim() !== '' &&
+    typeof data.conversation_id === 'string' &&
+    data.conversation_id.trim() !== ''
   )
 }
 
@@ -110,7 +114,7 @@ export async function handleProducer(
     if (!validateMessageData(messageData)) {
       return jsonResponse({
         success: false,
-        message: 'Campos obrigatórios: chatId e content',
+        message: 'Campos obrigatórios: chatId, content, account_id e conversation_id',
         error: 'VALIDATION_ERROR'
       }, 400)
     }
@@ -121,7 +125,9 @@ export async function handleProducer(
       messageId: messageData.messageId || `msg-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
       content: messageData.content.trim(),
       messageType: messageData.messageType?.trim() || 'text',
-      timestamp: messageData.timestamp || Date.now()
+      timestamp: messageData.timestamp || Date.now(),
+      account_id: messageData.account_id.trim(),
+      conversation_id: messageData.conversation_id.trim()
     }
 
     // Enviar para a fila

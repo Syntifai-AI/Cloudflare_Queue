@@ -83,6 +83,8 @@ curl -X POST https://seu-worker.workers.dev \
   -d '{
     "chatId": "chat-001",
     "content": "Olá, tudo bem?",
+    "account_id": "acc-123",
+    "conversation_id": "conv-456",
     "messageType": "text"
   }'
 ```
@@ -100,11 +102,13 @@ Envia uma mensagem para o buffer.
 **Body:**
 ```json
 {
-  "chatId": "chat-001",        // ✅ Obrigatório - ID do chat
-  "content": "Mensagem aqui",  // ✅ Obrigatório - Conteúdo
-  "messageType": "text",       // ❌ Opcional - Padrão: "text"
-  "messageId": "msg-001",      // ❌ Opcional - Auto-gerado
-  "timestamp": 1729726514129   // ❌ Opcional - Auto-gerado
+  "chatId": "chat-001",           // ✅ Obrigatório - ID do chat
+  "content": "Mensagem aqui",     // ✅ Obrigatório - Conteúdo
+  "account_id": "acc-123",        // ✅ Obrigatório - ID da conta
+  "conversation_id": "conv-456",  // ✅ Obrigatório - ID da conversa
+  "messageType": "text",          // ❌ Opcional - Padrão: "text"
+  "messageId": "msg-001",         // ❌ Opcional - Auto-gerado
+  "timestamp": 1729726514129      // ❌ Opcional - Auto-gerado
 }
 ```
 
@@ -132,7 +136,7 @@ Envia uma mensagem para o buffer.
 ```json
 {
   "success": false,
-  "message": "Campos obrigatórios: chatId e content",
+  "message": "Campos obrigatórios: chatId, content, account_id e conversation_id",
   "error": "VALIDATION_ERROR"
 }
 ```
@@ -144,6 +148,8 @@ O sistema envia dados processados para seu webhook externo no seguinte formato:
 ```json
 {
   "chatId": "chat-001",
+  "account_id": "acc-123",
+  "conversation_id": "conv-456",
   "totalMessages": 5,
   "conversation": "Oi\nTudo bem?\nPreciso de ajuda",
   "messages": [
@@ -152,7 +158,9 @@ O sistema envia dados processados para seu webhook externo no seguinte formato:
       "content": "Oi",
       "messageType": "text",
       "timestamp": 1729726514129,
-      "timestampISO": "2025-10-23T23:15:14.129Z"
+      "timestampISO": "2025-10-23T23:15:14.129Z",
+      "account_id": "acc-123",
+      "conversation_id": "conv-456"
     }
   ],
   "processedAt": "2025-10-23T23:15:44.000Z"
