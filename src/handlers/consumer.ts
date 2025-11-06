@@ -67,13 +67,15 @@ function preparePayload(
     timestamp: m.timestamp,
     timestampISO: new Date(m.timestamp).toISOString(),
     account_id: m.account_id,
-    conversation_id: m.conversation_id
+    conversation_id: m.conversation_id,
+    contact_id: m.contact_id
   }))
 
   return {
     chatId,
     account_id: sortedMessages[0].account_id,
     conversation_id: sortedMessages[0].conversation_id,
+    contact_id: sortedMessages[0].contact_id,
     totalMessages: messages.length,
     conversation,
     messages: processedMessages,

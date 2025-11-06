@@ -85,6 +85,7 @@ curl -X POST https://seu-worker.workers.dev \
     "content": "Olá, tudo bem?",
     "account_id": "acc-123",
     "conversation_id": "conv-456",
+    "contact_id": "contact-789",
     "messageType": "text"
   }'
 ```
@@ -106,6 +107,7 @@ Envia uma mensagem para o buffer.
   "content": "Mensagem aqui",     // ✅ Obrigatório - Conteúdo
   "account_id": "acc-123",        // ✅ Obrigatório - ID da conta
   "conversation_id": "conv-456",  // ✅ Obrigatório - ID da conversa
+  "contact_id": "contact-789",    // ✅ Obrigatório - ID do contato
   "messageType": "text",          // ❌ Opcional - Padrão: "text"
   "messageId": "msg-001",         // ❌ Opcional - Auto-gerado
   "timestamp": 1729726514129      // ❌ Opcional - Auto-gerado
@@ -136,7 +138,7 @@ Envia uma mensagem para o buffer.
 ```json
 {
   "success": false,
-  "message": "Campos obrigatórios: chatId, content, account_id e conversation_id",
+  "message": "Campos obrigatórios: chatId, content, account_id, conversation_id e contact_id",
   "error": "VALIDATION_ERROR"
 }
 ```
@@ -150,6 +152,7 @@ O sistema envia dados processados para seu webhook externo no seguinte formato:
   "chatId": "chat-001",
   "account_id": "acc-123",
   "conversation_id": "conv-456",
+  "contact_id": "contact-789",
   "totalMessages": 5,
   "conversation": "Oi\nTudo bem?\nPreciso de ajuda",
   "messages": [
@@ -160,7 +163,8 @@ O sistema envia dados processados para seu webhook externo no seguinte formato:
       "timestamp": 1729726514129,
       "timestampISO": "2025-10-23T23:15:14.129Z",
       "account_id": "acc-123",
-      "conversation_id": "conv-456"
+      "conversation_id": "conv-456",
+      "contact_id": "contact-789"
     }
   ],
   "processedAt": "2025-10-23T23:15:44.000Z"

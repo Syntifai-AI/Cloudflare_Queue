@@ -65,7 +65,9 @@ function validateMessageData(data: any): data is CreateBufferMessageData {
     typeof data.account_id === 'string' &&
     data.account_id.trim() !== '' &&
     typeof data.conversation_id === 'string' &&
-    data.conversation_id.trim() !== ''
+    data.conversation_id.trim() !== '' &&
+    typeof data.contact_id === 'string' &&
+    data.contact_id.trim() !== ''
   )
 }
 
@@ -114,7 +116,7 @@ export async function handleProducer(
     if (!validateMessageData(messageData)) {
       return jsonResponse({
         success: false,
-        message: 'Campos obrigatórios: chatId, content, account_id e conversation_id',
+        message: 'Campos obrigatórios: chatId, content, account_id, conversation_id e contact_id',
         error: 'VALIDATION_ERROR'
       }, 400)
     }
@@ -127,7 +129,8 @@ export async function handleProducer(
       messageType: messageData.messageType?.trim() || 'text',
       timestamp: messageData.timestamp || Date.now(),
       account_id: messageData.account_id.trim(),
-      conversation_id: messageData.conversation_id.trim()
+      conversation_id: messageData.conversation_id.trim(),
+      contact_id: messageData.contact_id.trim()
     }
 
     // Enviar para a fila

@@ -20,6 +20,7 @@ export interface BufferMessage {
   timestamp: number     // Unix timestamp (milissegundos)
   account_id: string    // ID da conta do usuário
   conversation_id: string // ID da conversa/thread
+  contact_id: string    // ID do contato
 }
 
 /**
@@ -31,6 +32,7 @@ export type CreateBufferMessageData = Partial<BufferMessage> & {
   content: string
   account_id: string
   conversation_id: string
+  contact_id: string
 }
 
 // ============================================
@@ -53,6 +55,7 @@ export interface ProcessedChatPayload {
   chatId: string
   account_id: string
   conversation_id: string
+  contact_id: string
   totalMessages: number
   conversation: string  // Todas as mensagens concatenadas
   messages: ProcessedMessage[]
@@ -70,6 +73,7 @@ export interface ProcessedMessage {
   timestampISO: string
   account_id: string
   conversation_id: string
+  contact_id: string
 }
 
 // ============================================

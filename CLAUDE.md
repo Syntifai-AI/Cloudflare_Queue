@@ -152,11 +152,14 @@ dead_letter_queue = "buffer-memory-dlq"
 
 ```typescript
 {
-  chatId: string       // ✅ Obrigatório - ID do chat (para agrupamento)
-  content: string      // ✅ Obrigatório - Conteúdo da mensagem
-  messageType: string  // ❌ Opcional - Padrão: "text"
-  messageId: string    // ❌ Opcional - Auto-gerado se não fornecido
-  timestamp: number    // ❌ Opcional - Auto-gerado se não fornecido
+  chatId: string           // ✅ Obrigatório - ID do chat (para agrupamento)
+  content: string          // ✅ Obrigatório - Conteúdo da mensagem
+  account_id: string       // ✅ Obrigatório - ID da conta do usuário
+  conversation_id: string  // ✅ Obrigatório - ID da conversa/thread
+  contact_id: string       // ✅ Obrigatório - ID do contato
+  messageType: string      // ❌ Opcional - Padrão: "text"
+  messageId: string        // ❌ Opcional - Auto-gerado se não fornecido
+  timestamp: number        // ❌ Opcional - Auto-gerado se não fornecido
 }
 ```
 
@@ -165,6 +168,9 @@ dead_letter_queue = "buffer-memory-dlq"
 ```typescript
 {
   chatId: string              // ID do chat
+  account_id: string          // ID da conta
+  conversation_id: string     // ID da conversa
+  contact_id: string          // ID do contato
   totalMessages: number       // Quantidade de mensagens agrupadas
   conversation: string        // Todas as mensagens concatenadas com \n
   messages: [                 // Array de mensagens processadas
@@ -174,6 +180,9 @@ dead_letter_queue = "buffer-memory-dlq"
       messageType: string
       timestamp: number
       timestampISO: string    // ISO 8601
+      account_id: string
+      conversation_id: string
+      contact_id: string
     }
   ],
   processedAt: string         // ISO timestamp do processamento
@@ -225,13 +234,36 @@ wrangler secret put <NOME_DA_VARIAVEL>
 
 ## 🔄 Fluxo de Trabalho para Mudanças
 
-### Adicionar novo campo à mensagem:
+### ⭐ Adicionar novo campo à mensagem (IMPORTANTE)
 
-1. Editar `src/types/buffer-memory.ts` (BLOCO 02) - adicionar campo em `BufferMessage`
-2. Atualizar validação em `src/handlers/producer.ts` (BLOCO 02) - `validateMessageData()`
-3. Se necessário, atualizar `preparePayload()` em `src/handlers/consumer.ts` (BLOCO 02)
-4. Atualizar interface `ProcessedMessage` se o campo for enviado ao webhook
-5. Fazer deploy: `wrangler deploy`
+**CONSULTE SEMPRE**: `COMO_ADICIONAR_PARAMETROS.md` para checklist completo e passo a passo detalhado.
+
+**Resumo dos passos:**
+
+1. **Types** (`src/types/buffer-memory.ts` - BLOCO 02):
+   - Adicionar em `BufferMessage`
+   - Adicionar em `CreateBufferMessageData`
+   - Adicionar em `ProcessedChatPayload`
+   - Adicionar em `ProcessedMessage`
+
+2. **Producer** (`src/handlers/producer.ts` - BLOCO 02/03):
+   - Atualizar validação em `validateMessageData()`
+   - Atualizar mensagem de erro
+   - Adicionar campo ao objeto `message`
+
+3. **Consumer** (`src/handlers/consumer.ts` - BLOCO 02):
+   - Adicionar em `processedMessages` mapping
+   - Adicionar no retorno de `preparePayload()`
+
+4. **Documentação** (`README.md`):
+   - Atualizar seção de teste
+   - Atualizar API Reference
+   - Atualizar exemplo de webhook
+
+5. **Deploy**:
+   - `wrangler deploy`
+   - Atualizar `README.md`
+   - Commit e push
 
 ### Mudar critério de agrupamento:
 
@@ -305,7 +337,31 @@ wrangler queues list
 
 ## 📚 Referências Rápidas
 
+### Documentação do Projeto
+- **COMO_ADICIONAR_PARAMETROS.md** - Tutorial completo com checklist para adicionar novos campos
+- **README.md** - Documentação geral do projeto e API Reference
+- **CLAUDE.md** - Este arquivo - Instruções técnicas para desenvolvimento
+
+### Cloudflare
 - **Cloudflare Queues**: https://developers.cloudflare.com/queues/
 - **Workers TypeScript**: https://developers.cloudflare.com/workers/languages/typescript/
 - **Wrangler CLI**: https://developers.cloudflare.com/workers/wrangler/
 - **Dead Letter Queues**: https://developers.cloudflare.com/queues/configuration/dead-letter-queues/
+
+## 📂 Arquivos do Projeto
+
+```
+buffer-memory/
+├── src/
+│   ├── index.ts                 # Entry point (4 blocos)
+│   ├── types/
+│   │   └── buffer-memory.ts     # Types e interfaces (4 blocos)
+│   └── handlers/
+│       ├── producer.ts          # Webhook HTTP (3 blocos)
+│       └── consumer.ts          # Processador de fila (3 blocos)
+├── wrangler.toml                # Configuração Cloudflare
+├── .dev.vars.example            # Template de variáveis
+├── README.md                    # Documentação do usuário
+├── CLAUDE.md                    # Instruções técnicas (este arquivo)
+└── COMO_ADICIONAR_PARAMETROS.md # Tutorial de como adicionar campos
+```
